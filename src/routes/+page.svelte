@@ -6,7 +6,7 @@
 <div class="body-container" in:fade={{ duration: 800 }}>
     <div class="hero-home-content">
         <div class="hero-text">
-            <h1>Řemeslo. <br /> V rovnováze s přírodou.</h1>
+            <h1>prvky <br> architektonické  </h1>
         </div>
 
         <div class="hero-buttons">
