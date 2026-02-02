@@ -1,0 +1,68 @@
+<script lang="ts">
+    import '../app.css'; // Relativní cesta z routes/ do src/
+    import { page } from '$app/state'; 
+    import { fade } from 'svelte/transition';
+    import { goto, invalidateAll } from '$app/navigation';
+    import { supabase } from '$lib/supabaseClient';
+    import {Nav, Footer, CookieConsent} from '$lib/components';
+    import type { LayoutProps } from './$types';
+    import type { Session, AuthChangeEvent } from '@supabase/supabase-js';
+
+    // Svelte 5: Props s automatickým typováním
+    let { data, children }: LayoutProps = $props();
+
+    /** * Inicializujeme session jako prázdný reaktivní state.
+     * Tím, že sem nepíšeme přímo data.session, zmizí varování 
+     * state_referenced_locally.
+     */
+    let session = $state<Session | null>(null);
+
+    // Synchronizace auth stavu v reálném čase
+    $effect(() => {
+        /**
+         * Pokaždé, když se změní data ze serveru (např. po navigaci),
+         * aktualizujeme lokální session.
+         */
+        session = data.session;
+
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(
+            (event: AuthChangeEvent, _session: Session | null) => {
+                session = _session; // Okamžitá reaktivní změna v UI
+                
+                /**
+                 * Pokud se uživatel přihlásí nebo odhlásí, vynutíme 
+                 * znovunačtení load funkcí na serveru.
+                 */
+                if (event === 'SIGNED_IN' || event === 'SIGNED_OUT') {
+                    invalidateAll();
+                }
+            }
+        );
+
+        return () => subscription.unsubscribe();
+    });
+
+    // Odvozené hodnoty (Runes)
+    let pathname = $derived(page.url.pathname);
+    let year = $derived(new Date().getFullYear());
+
+    async function logout() {
+        const { error } = await supabase.auth.signOut();
+        if (!error) {
+            await invalidateAll();
+            await goto('/prihlaseni');
+        }
+    }
+</script>
+
+<Nav {session} {pathname} {logout} />
+
+{#key pathname}
+    <div in:fade={{ duration: 400, delay: 400 }} out:fade={{ duration: 400 }}>
+        {@render children()} 
+        <CookieConsent />
+    </div>
+{/key}
+
+<Footer {year} />
+

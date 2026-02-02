@@ -1,0 +1,343 @@
+:root {
+    --main: #202a25;
+    --secondary: #E2E8CE;
+    --active: #ACBFA4;
+    --action: #FF9900;
+}
+
+.white {
+    background-color: white !important;
+}
+* {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size:100%;
+    color: var(--main) ;
+}
+/*
+h1 {
+    font-size:6rem;
+    font-weight: 900;
+    font-style: normal;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+
+h2,h3 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+p {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+*/
+
+h1 {
+    /* Písmo se plynule mění od 2.5rem do 6rem podle šířky okna */
+    font-size: clamp(2.5rem, 10vw, 6rem); 
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.1;
+    margin: 0;
+}
+
+h2, h3 {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+p {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    margin-bottom: 1rem;
+}
+
+/*BUTTON*/
+
+button {
+    display: inline-block;
+    margin: 10px;
+    background-color: var(--action);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: transform 0.2s ease-in-out;
+}
+
+button a {
+    color: white;
+    text-decoration: none;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+button:hover a {
+    color: white;
+}
+
+
+/*BODY*/
+
+.body-container {
+    padding: 1em 2em;
+    
+}
+
+/*INFO BOX*/
+.box-container {
+    display: flex;
+    flex-wrap: wrap; 
+    min-height: 65vh;
+    width: 100%;
+    background-color: var(--secondary);
+}
+
+.box-container .image-container, .box-container .text-container {
+    flex: 1 1 50%; 
+    display: flex;
+    flex-direction: column;
+    margin:0 auto;
+}
+
+.box-container .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+
+.box-container .text-container {
+    max-width:80ch;
+    padding: 20px;
+    
+}
+
+.box-container .text-container ul li img{
+    max-width:25px;
+    margin-right:1em;
+    
+}
+
+.box-container .text-container ul li {
+    font-size:1.5em;
+    display:flex;
+    align-items: center;
+    
+}
+
+
+/**
+TEAM - OPRAVENO NA SLOUPCE (JMÉNO, FOTO, TEXT POD SEBOU)
+****/
+
+.team {
+    display: flex;
+    flex-direction: column; /* Celý seznam pod sebou */
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1em;
+    gap: 4em; /* Mezera mezi jednotlivými lidmi */
+}
+
+.team li {
+    display: flex;
+    flex-direction: column; /* Jméno, foto a text pod sebou */
+    align-items: center;
+    text-align: center;
+    max-width: 400px;
+}
+
+/* Pořadí: Jméno (b), pak Portrét (img), pak Text */
+.team li b {
+    order: 1;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.team li img {
+    order: 2;
+    max-height: 300px; /* Větší portrét, když jsou pod sebou */
+    width: auto;
+    margin: 10px 0;
+}
+
+.team li span, .team li p, .team li small {
+    order: 3;
+    font-size: 1.2rem;
+}
+
+/* Původní styly zachovány pro kompatibilitu */
+.team img {
+    width: auto;
+}
+
+
+
+ul {
+    list-style: none;
+    padding-left:1em;
+    border-left: 0.1em solid var(--main);
+
+}
+
+ul li a {
+    text-decoration:none;
+}
+
+/* CATHEDRA COMPONENTS ENGINE */
+
+/* Základní kontejner pro sekce */
+.box-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: var(--secondary);
+    margin: 1.5em 0;
+}
+
+.box-container.white { background-color: white !important; }
+.box-container.reverse { flex-direction: row-reverse; }
+
+/* Poloviny boxu */
+.box-container .image-container, 
+.box-container .text-container {
+    flex: 1 1 500px;
+    padding: clamp(1.5rem, 5vw, 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* Centrování obrázků */
+.centered-content { display: flex; justify-content: center; align-items: center; }
+.image-container img { max-width: 100%; height: auto; object-fit: contain; }
+
+/* Sjednocený grid pro výčty */
+.sjednoceny-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: clamp(1.5rem, 3vw, 3rem);
+    margin-top: 1.5em;
+}
+
+.grid-item { display: flex; flex-direction: column; gap: 0.8em; }
+.grid-item h3 { font-size: clamp(1.2rem, 1.5vw, 1.5rem); margin: 0; }
+
+/* CTA Sekce - univerzální pro konec každé stránky */
+.cta-sekce { 
+    text-align: center; 
+    padding: clamp(4em, 8vw, 8em) 1.5rem; 
+}
+
+
+/**
+* BUTTONY 
+*/
+
+
+.button-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5em;
+    justify-content: center;
+}
+
+.button-wrap button {
+    flex: 1 1 280px;
+    max-width: 350px;
+    padding: 1.2em 2em;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+
+/* ?? Zdvojené */
+.btn-outline { background: transparent; border: 2px solid var(--main); color: var(--main); }
+.btn-filled { background: var(--action); border: 2px solid var(--action); color: white; }
+
+/* FIX PRO ODHLÁŠENÍ - BEZ EFEKTU POSUNU */
+.logout-link {
+    display: inline-block;
+    background-color: var(--action) !important;
+    color: white !important;
+    padding: 10px 20px !important;
+    font-weight: bold;
+    text-decoration: none !important;
+    line-height: 1; /* Zabrání skákání textu */
+}
+
+.logout-link:hover {
+    opacity: 0.9; /* Pouze jemná změna průhlednosti místo zvětšení */
+}
+
+/* Globální styly pro tlačítka */
+.btn-outline, .btn-filled {
+    background: transparent;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 0; /* Pokud chceš ostré hrany jako doteď */
+}
+
+.btn-outline {
+    border: 2px solid var(--main);
+}
+
+.btn-outline a, .btn-outline {
+    color: var(--main) !important;
+}
+
+.btn-filled {
+    background-color: var(--action);
+    border: 2px solid var(--action);
+}
+
+.btn-filled a, .btn-filled {
+    color: white !important; /* Nebo černá, podle toho co sedí k --action */
+}
+
+.btn-outline:hover, .btn-filled:hover {
+    transform: scale(1.05);
+}
+
+    /* Styly pro odkaz na aktivní stránku v menu */
+  /*
+    .active { 
+        font-weight: bold; 
+        border-bottom: 2px solid var(--main, #333); 
+    }
+*/
+    /* Tlačítko pro odhlášení */
+    .logout-btn {
+        background: none;
+        border: none;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: opacity 0.2s;
+    }
+
+    .logout-btn:hover {
+        opacity: 0.7;
+    }
