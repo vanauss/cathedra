@@ -9,44 +9,66 @@
 </script>
 
 <div class="button-sekce" in:fade={{ duration: 800, delay: 500 }}>
-    <main>
+    <div class="container">
         {#each items as item}
-            <button class={item.type === 'action' ? 'action-btn' : ''}>
-                <a href={item.href}>{item.text}</a>
-            </button>
+            <a href={item.href} class="custom-btn {item.type === 'action' ? 'action-btn' : 'standard-btn'}">
+                {item.text}
+            </a>
         {/each}
-    </main>
+    </div>
 </div>
 
 <style>
-    /* Přesunul jsem sem tvoje CSS, aby bylo centrálně u komponenty */
     .button-sekce {
-        display: grid;
-        place-items: center;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 2rem 0;
     }
 
-    button {
-        background-color: transparent;
+    .container {
+        display: flex;
+        flex-wrap: wrap; /* Zalomí tlačítka pod sebe, když není místo */
+        justify-content: center;
+        gap: 1.2rem; /* Mezera, aby nebyla nalepená na sobě */
+        width: 100%;
+        max-width: 600px; /* Aby nebyla příliš široká na desktopu */
+    }
+
+    .custom-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 30px;
         font-weight: bold;
-        border: 2px solid var(--main);
-        margin: 0 10px; /* Přidán drobný rozestup mezi tlačítka */
-        transition: transform 0.2s ease;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: transform 0.2s ease, background-color 0.2s ease;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        
+        /* MAGIE BEZ MEDIA QUERIES: */
+        /* Pokud je kontejner užší než ~280px (mobil), tlačítko zabere 100%. 
+           Jinak se jich vejde víc vedle sebe. */
+        flex: 1 1 250px; 
+        max-width: 100%;
     }
 
-    button a {
-        color: var(--main) !important;
-        text-decoration: none;
-        padding: 10px 20px;
-        display: inline-block;
+    /* Slabší tlačítko se zeleným rámečkem */
+    .standard-btn {
+        background-color: transparent;
+        border: 2px solid var(--main);
+        color: var(--main);
     }
-    
-    /* Druhé tlačítko (nebo typ action) */
-    button.action-btn {
+
+    /* Akční oranžové tlačítko */
+    .action-btn {
         background-color: var(--action);
         border: 2px solid var(--action);
+        color: white;
     }
 
-    button:hover {
-        transform: scale(1.1);
+    .custom-btn:hover {
+        transform: scale(1.1); /* Sjednocený hover */
     }
 </style>
