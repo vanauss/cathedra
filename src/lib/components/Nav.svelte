@@ -5,7 +5,7 @@
 <nav>
     <div class="logo">
         <a href="/">
-            <img src="/cathedra_logo.svg" alt="Cathedra logo" width="120" />
+            <img src="/cathedra_logo.svg" alt="Cathedra logo" width="120" fetchpriority="high" />
         </a>
     </div>
 
