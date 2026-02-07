@@ -1,6 +1,32 @@
 /* GIGANTICKÝ ÚKLID GLOBÁLNÍHO CSS - CATHEDRA 
-    Poslední aktualizace: 02. 02. 2026
+    Poslední aktualizace: 07. 02. 2026 - Aplikovány lokální latin-ext fonty
 */
+
+/* --- DEFINICE FONTŮ (Opraveno pro latin-ext z tvé složky) --- */
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/montserrat-v31-latin-ext-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/montserrat-v31-latin-ext-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/fonts/montserrat-v31-latin-ext-900.woff2') format('woff2');
+}
 
 :root {
     /* Definice naší barevné palety */
@@ -24,6 +50,8 @@ body {
     color: var(--main);
     line-height: 1.5;
     overflow-x: hidden; /* Pojistka proti vodorovnému posunu na mobilu */
+    -webkit-font-smoothing: antialiased; /* Vyhlazení pro macOS/iOS */
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .body-container {
@@ -32,9 +60,8 @@ body {
 
 /* TYPOGRAFIE - RESPONSIVNÍ BEZ MEDIA QUERIES */
 h1 {
-    /* Upraveno na 7.5vw: "ARCHITEKTONICKÉ" se nyní vejde i na mobil */
     font-size: clamp(1.8rem, 7.5vw, 6rem); 
-    font-weight: 900;
+    font-weight: 900; /* Využívá čistý Black řez s latin-ext */
     text-transform: uppercase;
     text-align: center;
     line-height: 1.05;
@@ -45,7 +72,7 @@ h1 {
 
 h2, h3 {
     font-size: clamp(1.5rem, 5vw, 3rem);
-    font-weight: bold;
+    font-weight: 700; /* Přesně mapováno na tvůj soubor latin-ext-700 */
     line-height: 1.2;
     margin-bottom: 1.2rem;
     text-transform: uppercase;
