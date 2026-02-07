@@ -13,7 +13,7 @@
     <div class="footer-content">
         <div class="footer-body">
             <div class="business">
-                <h4>Obchod</h4>
+                <strong class="footer-title">Obchod</strong>
                 <ul>
                     <li><a href="/katalog">Jak fungujeme?</a></li>
                     <li><span class="no-link">Obchodní podmínky</span></li>
@@ -21,7 +21,7 @@
                 </ul>
             </div>
             <div class="catalog">
-                <h4>Katalog</h4>
+                <strong class="footer-title">Katalog</strong>
                 <ul>
                     <li><a href="/industrialni-okna">Industriální okna</a></li>
                     <li><a href="/schody">Terasové schody</a></li>
@@ -29,7 +29,7 @@
                 </ul>
             </div>
             <div class="about">
-                <h4>O nás</h4>
+                <strong class="footer-title">O nás</strong>
                 <ul>
                     <li><a href="/o-nas">O nás</a></li>
                     <li><a href="/reference">Reference</a></li>
@@ -38,7 +38,7 @@
                 </ul>
             </div>
             <div class="contact">
-                <h4>Kontakt</h4>
+                <strong class="footer-title">Kontakt</strong>
                 <ul>
                     <li><b><a href="tel:+420604489741">+420 604 489 741</a></b></li>
                     <li><b><a href="mailto:posta@cathedra.cz">posta@cathedra.cz</a></b></li>
@@ -89,9 +89,14 @@
         padding-bottom: 1em;
     }
 
-    h4 { 
+    /* PŘEDĚLANÝ NADPIS Z H4 NA STRONG PRO PAGESPEED [cite: 2026-02-01] */
+    .footer-title { 
+        display: block; /* Nutné pro správné okraje */
         text-transform: uppercase; 
         margin-bottom: 1.5rem; 
+        font-weight: 700; /* Využívá tvůj nahrátý font Montserrat-700 */
+        font-size: 1rem;
+        color: var(--main);
     }
 
     small { 
