@@ -2,15 +2,17 @@
 <html lang="cs">
 <head>
     <meta charset="utf-8" />
-    <title>Cathedra | Prvky architektonické & zakázko výroba z přírodních materiálů</title>
+    <title>Cathedra | Prvky architektonické & zakázková výroba z přírodních materiálů</title>
     <link rel="icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Cathedra - Navrhujeme a vyrábíme unikátní architektonické detaily z masivního dřeva, oceli a kamene. Generace a 20+ let praxe v poctivém řemesle.">
    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQ5V10ZDRG"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         
+        // Výchozí nastavení souhlasu (GDPR compliant) [cite: 2026-01-31]
         gtag('consent', 'default', {
             'analytics_storage': 'denied',
             'ad_storage': 'denied',
@@ -18,13 +20,22 @@
             'ad_personalization': 'denied',
             'wait_for_update': 500
         });
+
+        gtag('js', new Date());
+
+        // Konfigurace měření s anonymizací IP pro Best Practices [cite: 2026-02-01]
+        gtag('config', 'G-EQ5V10ZDRG', {
+            'anonymize_ip': true
+        });
     </script>
 
     %sveltekit.head%
+    
     <link rel="canonical" href="https://www.cathedra.cz" />
-<link rel="preload" href="/fonts/montserrat-v31-latin-ext-900.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/montserrat-v31-latin-ext-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/montserrat-v31-latin-ext-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+    <link rel="preload" href="/fonts/montserrat-v31-latin-ext-900.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/montserrat-v31-latin-ext-700.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/montserrat-v31-latin-ext-regular.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body data-sveltekit-preload-data="hover">
     <div style="display: contents">%sveltekit.body%</div>
