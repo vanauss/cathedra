@@ -98,7 +98,6 @@
         display: block; 
         text-align: center; 
         margin-top: 3rem; 
-        opacity: 0.6; 
     }
     
     ul {

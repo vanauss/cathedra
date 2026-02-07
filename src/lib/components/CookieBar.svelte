@@ -53,7 +53,7 @@
     <div class="container">
       <div class="main-content">
         <div class="text">
-          <h3>Nastavení soukromí</h3>
+          <h4>Nastavení soukromí</h4>
           <p>
             Tento web používá cookies k analýze návštěvnosti a personalizaci obsahu. 
             Kliknutím na „Přijmout vše“ souhlasíte s jejich využíváním. [2026-01-31]
@@ -121,7 +121,7 @@
     gap: 1.5rem;
   }
 
-  .text h3 {
+  .text h4 {
     margin: 0 0 0.2rem 0;
     font-size: 1rem;
     color: #333;
