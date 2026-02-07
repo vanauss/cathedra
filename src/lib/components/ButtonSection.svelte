@@ -28,11 +28,11 @@
 
     .container {
         display: flex;
-        flex-wrap: wrap; /* Zalomí tlačítka pod sebe, když není místo */
+        flex-wrap: wrap;
         justify-content: center;
-        gap: 1.2rem; /* Mezera, aby nebyla nalepená na sobě */
+        gap: 1.2rem;
         width: 100%;
-        max-width: 600px; /* Aby nebyla příliš široká na desktopu */
+        max-width: 600px;
     }
 
     .custom-btn {
@@ -46,29 +46,24 @@
         transition: transform 0.2s ease, background-color 0.2s ease;
         font-size: 0.9rem;
         letter-spacing: 1px;
-        
-        /* MAGIE BEZ MEDIA QUERIES: */
-        /* Pokud je kontejner užší než ~280px (mobil), tlačítko zabere 100%. 
-           Jinak se jich vejde víc vedle sebe. */
         flex: 1 1 250px; 
         max-width: 100%;
     }
 
-    /* Slabší tlačítko se zeleným rámečkem */
     .standard-btn {
         background-color: transparent;
         border: 2px solid var(--main);
         color: var(--main);
     }
 
-    /* Akční oranžové tlačítko */
+    /* OPRAVA KONTRASTU PRO ACCESSIBILITY */
     .action-btn {
         background-color: var(--action);
         border: 2px solid var(--action);
-        color: white;
+        color: var(--main); 
     }
 
     .custom-btn:hover {
-        transform: scale(1.1); /* Sjednocený hover */
+        transform: scale(1.1);
     }
 </style>
