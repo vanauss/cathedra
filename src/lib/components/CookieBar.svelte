@@ -52,13 +52,13 @@
   <div class="cookie-full-width" transition:slide={{ axis: 'y' }}>
     <div class="container">
       <div class="main-content">
-        <div class="text">
-          <h4>Nastavení soukromí</h4>
-          <p>
-            Tento web používá cookies k analýze návštěvnosti a personalizaci obsahu. 
-            Kliknutím na „Přijmout vše“ souhlasíte s jejich využíváním. [2026-01-31]
-          </p>
-        </div>
+            <div class="text">
+              <strong class="title">Nastavení soukromí</strong>
+                <p>
+                 Tento web používá cookies k analýze návštěvnosti a personalizaci obsahu. 
+                  Kliknutím na „Přijmout vše“ souhlasíte s jejich využíváním.
+                </p>
+            </div>
         
         <div class="main-buttons">
           <button onclick={acceptAll} class="btn-dark">Přijmout vše</button>
@@ -120,14 +120,15 @@
     align-items: center;
     gap: 1.5rem;
   }
-
-  .text h4 {
+  
+.text .title {
+    display: block; /* Aby se choval jako nadpis na vlastním řádku */
     margin: 0 0 0.2rem 0;
     font-size: 1rem;
     color: #333;
     text-transform: uppercase;
-  }
-
+    font-weight: 700; /* Odpovídá tvému Bold fontu */
+}
   .text p {
     margin: 0;
     font-size: 0.85rem;
