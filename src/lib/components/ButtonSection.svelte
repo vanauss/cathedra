@@ -4,7 +4,7 @@
     // Definice parametrů v Svelte 5
     let { items = [
         { href: '/o-nas', text: 'O nás', type: 'standard' },
-        { href: '/katalog', text: 'katalog', type: 'action' }
+        { href: '/kontakty', text: 'Kontaktujte nás', type: 'action' }
     ] } = $props();
 </script>
 

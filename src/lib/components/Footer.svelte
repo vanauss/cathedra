@@ -1,8 +1,7 @@
 <script lang="ts">
     let { year } = $props();
-    
-    // Import obrázku pro patičku z tvé nové složky assets [cite: 2026-02-01]
     import imgFooterBg from '$lib/assets/pics/O_nas-kostky.png?enhanced';
+    import Obfuscate from '$lib/components/Obfuscate.svelte';
 </script>
 
 <footer>
@@ -13,35 +12,43 @@
     <div class="footer-content">
         <div class="footer-body">
             <div class="business">
-                <strong class="footer-title">Obchod</strong>
-                <ul>
-                    <li><a href="/katalog">Jak fungujeme?</a></li>
-                    <li><span class="no-link">Obchodní podmínky</span></li>
-                    <li><span class="no-link">Ochrana osobních údajů</span></li>
-                </ul>
+                <strong class="footer-title"></strong>
+                <img src="/cathedra_logo.svg" alt="Cathedra zakázková výroba Praha a okolí  " width="120" fetchpriority="high" />
             </div>
+
             <div class="catalog">
-                <strong class="footer-title">Katalog</strong>
+                <strong class="footer-title">Business</strong>
                 <ul>
-                    <li><a href="/industrialni-okna">Industriální okna</a></li>
-                    <li><a href="/schody">Terasové schody</a></li>
-                    <li><a href="/drevene-skleniky">Dřevěné skleníky</a></li>
+                    <li><span class="no-link">Obchodní podmínky</span></li>
+                    <li><span class="no-link">Vize</span></li>
+                    <li><a href="/gdpr">Ochrana osobních údajů</a></li>
+                    <li><a href="/gdpr">Cookies</a></li>
                 </ul>
             </div>
+
             <div class="about">
-                <strong class="footer-title">O nás</strong>
+                <strong class="footer-title">Odkazy</strong>
                 <ul>
                     <li><a href="/o-nas">O nás</a></li>
                     <li><a href="/reference">Reference</a></li>
-                    <li><a href="/poptavka">Poptávka</a></li>
+                    <li><a href="/poptavky">Poptávka</a></li>
                     <li><a href="/kontakty">Kontakt</a></li>
                 </ul>
             </div>
+
             <div class="contact">
                 <strong class="footer-title">Kontakt</strong>
                 <ul>
-                    <li><b><a href="tel:+420604489741">+420 604 489 741</a></b></li>
-                    <li><b><a href="mailto:posta@cathedra.cz">posta@cathedra.cz</a></b></li>
+                    <li>
+                        <b>
+                            <Obfuscate type="tel" value="147 984 406 024+" />
+                        </b>
+                    </li>
+                    <li>
+                        <b>
+                            <Obfuscate type="email" value="zc.ardehtac@ofni" />
+                        </b>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -87,16 +94,26 @@
         grid-gap: 2rem;
         text-align: left;
         padding-bottom: 1em;
+        align-items: start; /* Zarovnání obsahu sloupců nahoru [cite: 2026-02-01] */
     }
 
-    /* PŘEDĚLANÝ NADPIS Z H4 NA STRONG PRO PAGESPEED [cite: 2026-02-01] */
+    /* CSS PRO VYSTŘEDĚNÍ LOGA [cite: 2026-02-01] */
+    .business {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Horizontální střed v rámci sloupce [cite: 2026-02-01] */
+        justify-content: center;
+        height: 100%;
+    }
+
     .footer-title { 
-        display: block; /* Nutné pro správné okraje */
+        display: block; 
         text-transform: uppercase; 
         margin-bottom: 1.5rem; 
-        font-weight: 700; /* Využívá tvůj nahrátý font Montserrat-700 */
+        font-weight: 700; 
         font-size: 1rem;
         color: var(--main);
+        min-height: 1.2rem; /* Rezerva pro prázdný nadpis u loga [cite: 2026-02-01] */
     }
 
     small { 
@@ -116,7 +133,6 @@
         margin-bottom: 0.8rem;
     }
 
-    /* HOVER EFEKT PRO ODKAZY - STEJNÝ JAKO U BUTTONŮ [cite: 2026-02-01] */
     a {
         text-decoration: none;
         color: inherit;
@@ -133,7 +149,11 @@
         opacity: 0.8;
     }
 
-    b a {
+    b :global(.safe-link) {
         color: var(--main);
     }
+
+    .contact ul{
+        color: var(--main);
+        background-color: var(--action);  }
 </style>

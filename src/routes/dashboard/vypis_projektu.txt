@@ -1,0 +1,222 @@
+--- SOUBOR: [id] ---
+
+
+--- SOUBOR: +page.svelte ---
+<script lang="ts">
+    import { supabase } from '$lib/supabaseClient';
+    
+    // Tady TS přesně řekneme, co v datech je, a červená zmizí
+    export let data: {
+        projects: any[];
+        profile: {
+            full_name: string;
+            phone: string;
+            address: string;
+        };
+        user: any;
+    };
+
+    let activeTab = 'objednavky'; 
+    let saving = false;
+    let message = '';
+
+    async function saveProfile() {
+        saving = true;
+        message = 'Ukládám...';
+
+        const { error } = await supabase
+            .from('profiles')
+            .upsert({
+                id: data.user.id,
+                full_name: data.profile.full_name,
+                phone: data.profile.phone,
+                address: data.profile.address,
+                updated_at: new Date().toISOString(),
+            }as any);
+
+        if (error) {
+            message = 'Chyba při ukládání: ' + error.message;
+        } else {
+            message = 'Údaje byly úspěšně uloženy.';
+            setTimeout(() => (message = ''), 3000);
+        }
+        saving = false;
+    }
+</script>
+
+<main class="body-container">
+    <h1>KLIENTSKÁ ZÓNA</h1>
+
+    <div class="tabs">
+        <button class:active={activeTab === 'objednavky'} on:click={() => (activeTab = 'objednavky')}>OBJEDNÁVKY</button>
+        <button class:active={activeTab === 'faktury'} on:click={() => (activeTab = 'faktury')}>FAKTURY</button>
+        <button class:active={activeTab === 'udaje'} on:click={() => (activeTab = 'udaje')}>MOJE ÚDAJE</button>
+    </div>
+
+    <div class="tab-content">
+        {#if activeTab === 'objednavky'}
+            <div class="orders-list">
+                {#if data.projects.length === 0}
+                    <div class="box-container white" style="padding: 2em; border: 1px solid var(--main);">
+                        <p>Zatím zde nemáte žádné aktivní projekty.</p>
+                    </div>
+                {:else}
+                    {#each data.projects as project}
+                        <a href="/dashboard/{project.id}" class="project-link" style="text-decoration: none;">
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <span class="title">{project.title}</span>
+                                    <span class="status">{project.status}</span>
+                                    <span class="arrow">DETAIL →</span>
+                                </div>
+                            </div>
+                        </a>
+                    {/each}
+                {/if}
+            </div>
+
+        {:else if activeTab === 'faktury'}
+            <div class="box-container white" style="min-height: auto; padding: 2em; border: 2px solid var(--main);">
+                <p>Zatím zde nemáte žádné faktury ke stažení.</p>
+            </div>
+
+        {:else if activeTab === 'udaje'}
+            <div class="profile-form">
+                <h2>Osobní údaje</h2>
+                
+                <div class="input-group">
+                    <label for="email">PŘIHLÁŠENÝ E-MAIL</label>
+                    <input type="text" id="email" value={data.user?.email} disabled />
+                </div>
+
+                <div class="input-group">
+                    <label for="name">CELÉ JMÉNO / FIRMA</label>
+                    <input type="text" id="name" bind:value={data.profile.full_name} placeholder="Vaše jméno" />
+                </div>
+
+                <div class="input-group">
+                    <label for="phone">TELEFON</label>
+                    <input type="text" id="phone" bind:value={data.profile.phone} placeholder="+420..." />
+                </div>
+
+                <div class="input-group">
+                    <label for="address">FAKTURAČNÍ ADRESA</label>
+                    <textarea id="address" bind:value={data.profile.address} placeholder="Ulice, město, PSČ" rows="3"></textarea>
+                </div>
+
+                <button on:click={saveProfile} disabled={saving} class="save-btn">
+                    {saving ? 'UKLÁDÁM...' : 'ULOŽIT ZMĚNY'}
+                </button>
+
+                {#if message}
+                    <p class="status-message" style="color: {message.includes('Chyba') ? '#ff4d4d' : 'var(--main)'}">{message}</p>
+                {/if}
+            </div>
+        {/if}
+    </div>
+</main>
+
+<style>
+    h1 { margin-bottom: 1em; text-align: center; }
+    h2 { font-size: 2rem; margin-bottom: 1em; }
+
+    .tabs { 
+        display: flex; 
+        justify-content: center; 
+        gap: 0; 
+        margin-bottom: 3em;
+        border-bottom: 2px solid var(--main);
+    }
+
+    .tabs button { 
+        background: none; 
+        color: var(--main) !important;
+        border: none;
+        border-radius: 0;
+        padding: 1.5em 3em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        text-transform: uppercase;
+    }
+
+    .tabs button.active { 
+        background-color: var(--active);
+    }
+
+    .accordion-item { 
+        border: 2px solid var(--main); 
+        margin-bottom: 10px;
+        background: white;
+    }
+
+    .accordion-header { 
+        width: 100%; 
+        display: flex; 
+        justify-content: space-between; 
+        padding: 2em;
+        align-items: center;
+    }
+
+    .accordion-header .title { font-weight: 900; text-transform: uppercase; }
+    .accordion-header .status { font-weight: bold; color: var(--action) !important; }
+
+    .profile-form { max-width: 600px; margin: 0 auto; text-align: left; }
+    .input-group { margin-bottom: 1.5em; }
+    .input-group label { display: block; font-weight: 900; font-size: 0.8rem; margin-bottom: 0.5em; }
+    
+    input, textarea { 
+        width: 100%; 
+        padding: 1em; 
+        border: 2px solid var(--main); 
+        border-radius: 0;
+        background: white;
+        font-family: inherit;
+    }
+
+    input:disabled { background: var(--secondary); cursor: not-allowed; opacity: 0.7; }
+
+    .save-btn {
+        background-color: var(--main);
+        color: white !important;
+        padding: 1.2em 2em;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 1em;
+        text-transform: uppercase;
+    }
+
+    .status-message { font-weight: bold; text-align: center; margin-top: 1em; }
+</style>
+
+--- SOUBOR: +page.ts ---
+import { supabase } from '$lib/supabaseClient';
+import { redirect } from '@sveltejs/kit';
+import type { PageLoad } from './$types';
+
+export const load: PageLoad = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (!session) {
+        throw redirect(303, '/prihlaseni');
+    }
+
+    // Načteme projekty a profil uživatele zároveň
+    const [projectsReq, profileReq] = await Promise.all([
+        supabase.from('projects').select('*').eq('client_id', session.user.id),
+        supabase.from('profiles').select('*').eq('id', session.user.id).maybeSingle()
+    ]);
+
+    return {
+        projects: projectsReq.data || [],
+        // Pokud profil neexistuje, pošleme prázdné hodnoty
+        profile: profileReq.data || { full_name: '', phone: '', address: '' },
+        user: session.user
+    };
+};
+
+--- SOUBOR: vypis_projektu.txt ---
+
+

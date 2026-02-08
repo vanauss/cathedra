@@ -3,28 +3,32 @@
     import ButtonSection from '$lib/components/ButtonSection.svelte';
 </script>
 
-<div class="body-container" in:fade={{ duration: 800 }}>
+<svelte:head>
+    <link rel="preload" as="image" href="/pics/Desgn.png" fetchpriority="high" />
+</svelte:head>
+
+<main class="body-container" in:fade={{ duration: 800 }}>
     <div class="hero-home-content">
         <div class="hero-text">
-            <h1>prvky <br> architektonické  </h1>
+            <h1>prvky <br> architektonické</h1>
         </div>
 
         <div class="hero-buttons">
             <ButtonSection />
         </div>
     </div>
-</div>
+</main>
 
 <style>
+    /* Styl zůstává stejný, jen jsme změnili tag v HTML */
     .body-container {
-        /* Výška i pozadí přesně podle tvé error stránky */
         height: calc(100vh - 150px);
         background: url('/pics/Desgn.png') no-repeat center center;
         background-size: cover;
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Vertikální centr */
-        align-items: center;     /* Horizontální centr */
+        justify-content: center;
+        align-items: center;
         text-align: center;
         padding: 0 1rem;
     }
@@ -34,11 +38,10 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 2rem; /* Mezera mezi textem a tlačítky */
+        gap: 2rem;
     }
 
     .hero-text h1 {
-        /* Používáme tvůj fluidní clamp z globálního CSS */
         margin: 0;
         line-height: 1.1;
     }
